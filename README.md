@@ -196,7 +196,7 @@ def loss_plot(model, X_train, y_train, X_test, y_test):
   plt.plot(test_loss_hist, label='Test Loss')
   plt.legend()
 ```
-<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/loss%20compare.png">
+<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/loss%20compare.png" width=90%>
 
 * Prediction
 ```
@@ -220,7 +220,7 @@ def result_plot(model, train_data, X_test, y_test):
           label = 'Predicted Cumulative Cases')
   plt.legend()
 ```
-<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/prediction%20compare.png" width=80%>
+<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/prediction%20compare.png" width=90%>
 
 ## 預測未來
 利用資料集原始數據及預測出的未來30天確診數
@@ -268,7 +268,7 @@ plt.ylabel('Cumulaive Confirmed Cases')
 plt.legend(['Real','Forecast_RNN','Forecast_LSTM','Forecast_GRU','Forecast_ConvLSTM'],loc = 'lower right')
 plt.show()
 ```
-<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/future%20prediction.png" width=80%>
+<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/future%20prediction.png">
 
 ## 結論
 1. 從測試結果來看，LSTM的結果是最好的。LSTM所預測出來的結果也最符合實際狀況。
