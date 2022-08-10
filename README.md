@@ -196,7 +196,7 @@ def loss_plot(model, X_train, y_train, X_test, y_test):
   plt.plot(test_loss_hist, label='Test Loss')
   plt.legend()
 ```
-<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/loss%20compare.png" width=90%>
+<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/loss%20compare.png" width=85%>
 
 * Prediction
 ```
@@ -220,7 +220,7 @@ def result_plot(model, train_data, X_test, y_test):
           label = 'Predicted Cumulative Cases')
   plt.legend()
 ```
-<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/prediction%20compare.png" width=90%>
+<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/prediction%20compare.png" width=85%>
 
 ## 預測未來
 利用資料集原始數據及預測出的未來30天確診數
