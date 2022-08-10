@@ -277,5 +277,5 @@ plt.show()
 <img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/conclusison.png" width=80%>
 
 ## 參考資料
-<br>[Using Conv + LSTM to predict Covid 19](https://www.kaggle.com/derrelldsouza/using-conv-lstm-to-predict-covid- 19#4.Predictive-modelling-using-CNN-+-Bi-Directional-LSTM)
-<br>[US Covid Case Prediction - Keras RNN](https://www.kaggle.com/tammamkhan/us-covid-case-predicton-keras- rnn#Plot-Model-Predictions)
+<br>[Using Conv + LSTM to predict Covid 19](https://www.kaggle.com/derrelldsouza/using-conv-lstm-to-predict-covid-19#4.Predictive-modelling-using-CNN-+-Bi-Directional-LSTM)
+<br>[US Covid Case Prediction - Keras RNN](https://www.kaggle.com/tammamkhan/us-covid-case-predicton-keras-rnn#Plot-Model-Predictions)
