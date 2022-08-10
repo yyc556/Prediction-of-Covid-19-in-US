@@ -65,6 +65,12 @@ y_test = y_test.unsqueeze(1)
 ```
 
 ## 模型建立
+```
+import torch
+import torch.nn as nn
+from torch.autograd import Variable
+import torch.optim as opt
+```
 * Simple RNN
 ```
 class RNN(nn.Module):
@@ -143,7 +149,7 @@ class ConvLSTM(nn.Module):
         return out
 ```
 模型架構整理
-<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/model%20structure.png">
+<br><img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/model%20structure.png" width=80%>
 
 ## 模型訓練
 <br>Loss Function：MSE
@@ -180,5 +186,89 @@ def train_model(model, X_train, y_train, X_test=None, y_test=None):
     
   return y_pred, train_loss_hist, test_loss_hist  
 ```
+
+## 訓練結果
+* LOSS
+```
+def loss_plot(model, X_train, y_train, X_test, y_test):
+  y_pred, train_loss_hist, test_loss_hist = train_model(model, X_train, y_train, X_test, y_test)
+  plt.plot(train_loss_hist, label='Train Loss')
+  plt.plot(test_loss_hist, label='Test Loss')
+  plt.legend()
+```
+<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/loss%20compare.png">
+
+* Prediction
+```
+def result_plot(model, train_data, X_test, y_test):
+  with torch.no_grad():
+    y_test_pred = model(X_test)
+    y_test_pred = y_test_pred.flatten()
+
+  train_data = scaler.inverse_transform(train_data.values.reshape(-1,1))
+  y_test = scaler.inverse_transform(y_test.reshape(-1,1))
+  y_test_pred = scaler.inverse_transform(y_test_pred.reshape(-1,1))
+
+  plt.plot(time_series_data['confirmed'].index[:len(train_data)],
+          train_data,
+          label = 'Historical Cumulative Cases')
+  plt.plot(time_series_data['confirmed'].index[len(train_data):len(train_data)+len(y_test_pred)],
+          y_test,
+          label = 'Real Cumulative Cases')
+  plt.plot(time_series_data['confirmed'].index[len(train_data):len(train_data)+len(y_test_pred)],
+          y_test_pred,
+          label = 'Predicted Cumulative Cases')
+  plt.legend()
+```
+<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/prediction%20compare.png">
+
+## 預測未來
+利用資料集原始數據及預測出的未來30天確診數
+```
+def predict(model, num_prediction):
+  with torch.no_grad():
+    T = 5
+    predict_list = time_series_data['confirmed'][-T:]
+    num_prediction = num_prediction
+    for _ in range(num_prediction):
+      x = predict_list[-T:]
+      x = np.array(x)
+      x = torch.tensor(x).float()
+      x = x.reshape((1,T,1))
+      pred = model(x)
+      predict_list = np.append(predict_list, pred)
+  predict_list = predict_list[T-1:]
+  predict_list = scaler.inverse_transform(predict_list.reshape(-1,1)).astype(int)
+  last_date = time_series_data['index'].values[-1]
+  predict_dates = np.array(pd.date_range(last_date, periods=num_prediction+1))
+  return predict_dates, predict_list
+```
+```
+# 將所有的資料集數值反標準化
+real_comfirmed = scaler.inverse_transform(time_series_data['confirmed'].values.reshape(-1,1))
+```
+```
+rnn_predict_dates, rnn_predict_list = predict(rnn, 30)
+lstm_predict_dates, lstm_predict_list = predict(lstm, 30)
+gru_predict_dates, gru_predict_list = predict(gru, 30)
+convlstm_predict_dates, convlstm_predict_list = predict(convlstm, 30)
+```
+```
+# 作圖
+import matplotlib.pyplot as plt
+plt.figure(figsize=(20,8))
+plt.plot(time_series_data['index'], real_comfirmed)
+plt.plot(rnn_predict_dates, rnn_predict_list)
+plt.plot(lstm_predict_dates, lstm_predict_list)
+plt.plot(gru_predict_dates, gru_predict_list)
+plt.plot(convlstm_predict_dates, convlstm_predict_list)
+plt.title('Cumulaive Confirmed Cases')
+plt.xlabel('Date')
+plt.ylabel('Cumulaive Confirmed Cases')
+plt.legend(['Real','Forecast_RNN','Forecast_LSTM','Forecast_GRU','Forecast_ConvLSTM'],loc = 'lower right')
+plt.show()
+```
+<img src="">
+
 
 
