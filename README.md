@@ -274,6 +274,6 @@ plt.show()
 1. 從測試結果來看，LSTM的結果是最好的。LSTM所預測出來的結果也最符合實際狀況。
 2. 預測不準確的可能原因：只把確診數丟進去訓練，沒有其他環境因素可以學習
 3. 各模型比較
-<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/conclusison.png" width=70%>
+<img src="https://github.com/yyc556/prediction-of-Covid-19-in-USA/blob/main/images/conclusison.png">
 
 
